@@ -49,7 +49,6 @@ int SystemdManager::startService(std::string unit_name)
     }
 
     std::cout << "Object " << object << std::endl;
-    goto finish;
 
 finish:
     sd_bus_error_free(&error);
