@@ -10,7 +10,7 @@ SystemdManager::~SystemdManager()
     sd_bus_unref(m_bus);
 }
 
-int SystemdManager::startService(std::string unit_name)
+int SystemdManager::startService(std::string unit_name, bool stop = false)
 {
     int ret = -1;
     sd_bus_error error = SD_BUS_ERROR_NULL;
@@ -22,16 +22,16 @@ int SystemdManager::startService(std::string unit_name)
     }
 
     ret = sd_bus_call_method(m_bus,
-            SYSTEMD_SERVICE_NAME, /* service to contact */
-            SYSTEMD_OBJECT_PATH_NAME, /* object path */
-            SYSTEMD_MANAGER_INTERFACE_NAME, /* interface name */
-            SYSTEMD_START_METHOD, /* method name */
-            &error,/* object to return error in */
-            &reply,
-            "ss",
-            unit_name.c_str(),
-            "replace"
-    );
+                             SYSTEMD_SERVICE_NAME, /* service to contact */
+                             SYSTEMD_OBJECT_PATH_NAME, /* object path */
+                             SYSTEMD_MANAGER_INTERFACE_NAME, /* interface name */
+                             stop ? SYSTEMD_STOP_METHOD : SYSTEMD_START_METHOD, /* method name */
+                             &error,/* object to return error in */
+                             &reply,
+                             "ss",
+                             unit_name.c_str(),
+                             "replace"
+                             );
 
     /* input signature */
     /* first argument */
