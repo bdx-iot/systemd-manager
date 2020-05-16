@@ -4,6 +4,8 @@ project(systemd-manager)
 
 include(FindPkgConfig)
 
+set (CMAKE_CXX_STANDARD 11)
+
 pkg_check_modules(LIBSYSTEMD libsystemd>=211 REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
