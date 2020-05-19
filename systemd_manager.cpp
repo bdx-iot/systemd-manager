@@ -130,6 +130,34 @@ finish:
     return state;
 }
 
+int SystemdManager::reboot()
+{
+    int ret = -1;
+    sd_bus_error error = SD_BUS_ERROR_NULL;
+
+    if (!m_bus)
+    {
+        goto finish;
+    }
+
+    ret = sd_bus_call_method(m_bus,
+                             SYSTEMD_SERVICE_NAME,                              /* service to contact */
+                             SYSTEMD_OBJECT_PATH_NAME,                          /* object path */
+                             SYSTEMD_MANAGER_INTERFACE_NAME,                    /* interface name */
+                             SYSTEMD_REBOOT_METHOD, /* method name */
+                             &error,                                            /* object to return error in */
+                             nullptr, nullptr);
+
+    if (ret < 0)
+    {
+        std::cerr << "Failed to issue method call: " << error.message << std::endl;
+        goto finish;
+    }
+
+finish:
+    sd_bus_error_free(&error);
+    return ret;
+}
 
 int main(int argc, char *argv[])
 {

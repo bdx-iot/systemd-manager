@@ -18,6 +18,7 @@
 #define SYSTEMD_START_METHOD "StartUnit"
 #define SYSTEMD_STOP_METHOD "StopUnit"
 #define SYSTEMD_LOAD_UNIT_METHOD "LoadUnit"
+#define SYSTEMD_REBOOT_METHOD "Reboot"
 
 class SystemdManager
 {
@@ -26,6 +27,7 @@ public:
     ~SystemdManager();
     int startService(std::string unit_name, bool stop);
     bool isActive(std::string unit_name);
+    int reboot();
 
 private:
     sd_bus *m_bus = nullptr;
