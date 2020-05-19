@@ -1,4 +1,4 @@
-# systemd-manager
+# systemd-manager ![CI](https://github.com/bdx-iot/systemd-manager/workflows/CI/badge.svg)
 
 Example how to manage systemd services with C/C++
 
@@ -9,4 +9,3 @@ libsystemd
 ```
 $: sudo apt install libsystemd-dev
 ```
-
